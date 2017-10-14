@@ -10,10 +10,11 @@ module.exports = (robot) ->
 
   robot.hear /EN-(\d{2,5})/i, (res) ->
     issueNumber = res.match[1]
-    issueUrl = "https://" + jiraDomain + "/browse/EN-" + issueNumber
-    res.send issueUrl
-    apiUrl = "https://" + jiraDomain + "/rest/api/latest/issue/EN-" + issueNumber
-    res.http(apiUrl).auth(jiraUser, jiraPass).get() (err, resp, body) ->
-      unless err
-        summary = JSON.parse(body).fields.summary
-        res.send summary
+    if issueNumber
+      issueUrl = "https://" + jiraDomain + "/browse/EN-" + issueNumber
+      res.send issueUrl
+      apiUrl = "https://" + jiraDomain + "/rest/api/latest/issue/EN-" + issueNumber
+      res.http(apiUrl).auth(jiraUser, jiraPass).get() (err, resp, body) ->
+        unless err
+          summary = JSON.parse(body).fields.summary
+          res.send summary
