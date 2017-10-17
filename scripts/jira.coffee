@@ -12,7 +12,8 @@ module.exports = (robot) ->
     issueNumber = res.match[1]
     if issueNumber
       issueUrl = "https://" + jiraDomain + "/browse/EN-" + issueNumber
-      res.send issueUrl
+      if (res.message.text.indexOf issueUrl, 0) < 0
+        res.send issueUrl
       apiUrl = "https://" + jiraDomain + "/rest/api/latest/issue/EN-" + issueNumber
       res.http(apiUrl).auth(jiraUser, jiraPass).get() (err, resp, body) ->
         unless err
