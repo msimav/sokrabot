@@ -1,1 +1,1 @@
-web: bin/hubot -a proxy
+web: bin/hubot -a telegram
