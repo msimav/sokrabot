@@ -9,6 +9,8 @@ jiraPass = process.env.JIRA_PASSWORD
 module.exports = (robot) ->
 
   robot.hear /EN-(\d{2,5})/i, (res) ->
+    res.envelope.telegram =
+      disable_web_page_preview: true
     issueNumber = res.match[1]
     if issueNumber
       issueUrl = "https://" + jiraDomain + "/browse/EN-" + issueNumber
